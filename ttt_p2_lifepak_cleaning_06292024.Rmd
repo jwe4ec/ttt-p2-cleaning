@@ -1,0 +1,471 @@
+---
+title: "ttt_p2_lifepak_cleaning"
+author: "Yama Chang"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 4
+    toc_float: true
+---
+
+```{r setup, include=FALSE, cache = FALSE}
+require("knitr")
+knitr::opts_chunk$set(echo = TRUE, tidy = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r loading packages, include=FALSE}
+
+if(!require(tidymodels)){install.packages('tidymodels')}
+library(tidymodels)
+if(!require(tidyverse)){install.packages('tidyverse')}
+library(tidyverse)
+if(!require(skimr)){install.packages('skimr')}
+library(skimr)
+if(!require(furrr)){install.packages('furrr')}
+library(furrr)
+if(!require(scales)){install.packages('scales')}
+library(scales)
+if(!require(tictoc)){install.packages('tictoc')}
+library(tictoc)
+if(!require(heatmaply)){install.packages('heatmaply')}
+library(heatmaply)
+if(!require(doMC)){install.packages('doMC')}
+library(doMC)
+if(!require(glue)){install.packages('glue')}
+library(glue)
+if(!require(janitor)){install.packages('janitor')}
+library(janitor)
+if(!require(future)){install.packages('future')}
+library(future)
+if(!require(remotes)){install.packages('remotes')}
+library(remotes)
+if(!require(psych)){install.packages('psych')}
+library(psych)
+if(!require(imputeTS)){install.packages('imputeTS')}
+library(imputeTS)
+if(!require(timetk)){install.packages('timetk')}
+library(timetk)
+if(!require(tsibble)){install.packages('tsibble')}
+library(tsibble)
+if(!require(feasts)){install.packages('feasts')}
+library(feasts)
+if(!require(dtw)){install.packages('dtw')}
+library(dtw)
+if(!require(parallelDist)){install.packages('parallelDist')}
+library(parallelDist)
+if(!require(pheatmap)){install.packages('pheatmap')}
+library(pheatmap)
+if(!require(diffdf)){install.packages('diffdf')}
+library(diffdf)
+if(!require(tableone)){install.packages('tableone')}
+library(tableone)
+if(!require(tableone)){install.packages('tableone')}
+library(tableone)
+if(!require(corrr)){install.packages('corrr')}
+library(corrr)
+if(!require(Amelia)){install.packages('Amelia')}
+library(Amelia)
+if(!require(MOTE)){install.packages('MOTE')}
+library(MOTE)
+if(!require(fuzzyjoin)){install.packages('fuzzyjoin')}
+library(fuzzyjoin)
+if(!require(car)){install.packages('car')}
+library(car)
+if(!require(lsmeans)){install.packages('lsmeans')}
+library(lsmeans)
+if(!require(fastDummies)){install.packages('fastDummies')}
+library(fastDummies)
+if(!require(lubridate)){install.packages('lubridate')}
+library(lubridate)
+if(!require(modeltime)){install.packages('modeltime')}
+library(modeltime)
+if(!require(tibbletime)){install.packages('tibbletime')}
+library(tibbletime)
+
+
+```
+
+```{r parallelize, include=FALSE}
+## Let's set our number of cores for this document (May differ across computers)
+
+registerDoMC(cores = 7)
+
+## Benign change to see if Git is working
+
+```
+
+```{r}
+# Read TTT Phase 1 data for reference
+all_ttt1_data <- read_csv("./data/ttt1_data/cleaned_lifepak_ttt_phase_1.csv")
+```
+
+# Initial Cleaning
+
+General plan here:
+
+LifePak data
+
+1. Get a sense of the original data format
+2. Do initial cleaning (ordering notifications within participant, creating time of response, combining two csv)
+3. Do data cleaning (EMA data, combining day/night data, cleaning other columns, checking/removing duplicated rows)
+4. Export a cleaned df with a similar order/columns as TTT Phase 1 df
+
+## Read all lifepak files
+
+```{r reading in all lifepak files}
+
+# Creating a file list of all csvs in working directory 
+
+lifepak_files <- list.files(path = "./data/", pattern = "*.csv", full.names = TRUE) # ensure to use `full.names = TRUE` in the list.files() function to get the full path of the files
+
+# Importing in data without variable names (Have to skip the first few rows because of Qualtrics' format)
+
+all_likepak <- lifepak_files %>% 
+  map(~read_csv(.x, skip = 1, col_names = FALSE))
+
+# Creating variable names from those same files
+
+all_lifepak_names <- lifepak_files %>%
+  map(read_csv) %>% 
+  map(~slice_head(.x)) %>% 
+  map(~names(.x)) %>% 
+  map(~make_clean_names(.x))
+
+# Adding the names to the imported data
+
+named_lifepak <- map2(all_likepak, all_lifepak_names, ~{
+  
+  names(.x) <- .y  
+  .x
+  
+})
+
+```
+
+```{r doing visual inspection of lifepak data}
+
+map(1:2, ~{
+  enframe(named_lifepak[.x]) %>% 
+  dplyr::select(value) %>% 
+  unnest(value) %>% 
+  skim()
+})
+
+```
+
+
+```{r verifying number of participants}
+
+# Processing the data frames with descending order of column "n"
+result <- map(1:2, ~(
+  enframe(named_lifepak[.x]) %>% 
+  dplyr::select(value) %>% 
+  unnest(value) %>% 
+  group_by(participant_id) %>% 
+  tally() %>% 
+  arrange(desc(n))
+)) %>% 
+  bind_rows()
+
+# Display the result
+print(result)
+
+# Plot the distribution of "n": The highest count for pts is 107 
+
+ggplot(result, aes(x = n)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black", alpha = 0.7) +
+  labs(title = "Distribution of Rows Per Participants", x = "n", y = "Count") +
+  scale_x_continuous(breaks = seq(0, max(result$n), by = 10)) +
+  theme_minimal()
+
+# Create a simple count table of the distribution of "n"
+result %>%
+  count(n)
+
+```
+## Create Dataframe
+
+```{r creating dataframe with all participants and columns}
+
+all_df <- map(c(1:2), ~(
+  enframe(named_lifepak[.x]) %>% 
+  dplyr::select(value) %>% 
+  unnest(value) %>% 
+  select(-contains("gps")) %>% 
+  mutate(across(contains("responded"), as.character)
+         # across(ends_with("day"), as.numeric),
+         # across(ends_with("night"), as.numeric))
+  )
+)
+) %>% 
+  bind_rows() %>% 
+  print()
+
+# Print the number of rows and columns
+
+cat("Number of rows:", nrow(all_df), "\n")
+cat("Number of columns:", ncol(all_df), "\n")
+
+```
+
+## Other Initial Cleaning
+```{r reordering notifications in chronological order and other initial cleaning}
+
+## This is going through this for one test data frame, we'll want a function that will let us map through all the data frames in our list
+
+temp <- all_df %>% 
+  group_by(participant_id) %>% 
+  mutate(response_time = case_when(
+    responded != "User didn't respond to this notification" ~ notification_time + session_instance_response_lapse + session_length,
+    TRUE ~ NA_POSIXct_
+      )
+    ) %>% 
+  arrange(notification_time, .by_group = TRUE) %>% 
+  mutate(response_no = row_number(),
+         time_diff = as.numeric(response_time - lag(notification_time)), # This is in hours but I just need to make sure there aren't any negatives
+         ) %>% 
+  ungroup() %>% 
+  relocate(participant_id, response_no, notification_no, notification_time, response_time, time_diff) %>% 
+  print()
+
+## Want to check that response time for first notification isn't later than the next notification (This is hack-y right now, but a positive number indicates no out of order responses)
+
+temp %>% 
+  filter(!is.na(time_diff)) %>% 
+  count(time_diff) %>% 
+  arrange(time_diff) %>% 
+  slice_head()
+
+```
+
+```{r figuring out which variables need to be combined}
+
+skim(temp)
+
+```
+# Data Cleaning
+
+## Clean EMA items
+```{r trying to pivot these columns longer then wide}
+
+# Start cleaning EMA data
+
+df_ema <- temp
+
+# Convert notification_time to a POSIXct datetime object
+df_ema <- df_ema %>%
+  mutate(notification_time = ymd_hms(notification_time))
+
+# Create a new column based on the time of day
+df_ema_1 <- df_ema %>%
+  mutate(time_of_day = if_else(hour(notification_time) > 19 | (hour(notification_time) == 19 & minute(notification_time) > 0), "night", "day")) %>% 
+  select(c(1:6), time_of_day, everything())
+
+# Pivot the data to long format
+
+df_ema_long <- df_ema_1 %>%
+  pivot_longer(cols = starts_with("ema_"), 
+               names_to = c("ema", "type_num"), 
+               names_pattern = "ema_(.*)_(.*)") %>%
+  mutate(type = ifelse(as.numeric(type_num) >= 16 & as.numeric(type_num) <= 23, "day", "night")) %>%
+  select(-type_num)
+
+# Create the check_time column
+df_ema_long_1 <- df_ema_long %>%
+  mutate(check_time = if_else(time_of_day == type, 1, 0))
+
+# Remove rows where check_time is 0
+df_ema_long_2 <- df_ema_long_1 %>%
+  filter(check_time == 1) %>%
+  select(-check_time, -type)  
+
+# Transform to wide format again
+df_ema_wide <- df_ema_long_2 %>% 
+  pivot_wider(names_from = ema, values_from = value) 
+
+```
+
+## Clean variables that start with "reminder"
+
+```{r}
+# Since for "reminder" columns, it's recorded either for day or night time.  The goal is to coalesce the values of the pairs of columns (i.e., merge them, keeping the non-NA value).
+
+# Merge / coalesce the specified columns
+df_ema_wide_1 <- df_ema_wide %>%
+  mutate(
+    reminder_1 = coalesce(reminder_1_11, reminder_1_25),
+    reminder_2 = coalesce(reminder_2_12, reminder_2_26),
+    reminder_3 = coalesce(reminder_3_13, reminder_3_27),
+    reminder_4 = coalesce(reminder_4_14, reminder_4_28),
+    reminder_5 = coalesce(reminder_5_15, reminder_5_29),
+    thankyou = coalesce(thankyou_24, thankyou_41)
+  ) %>%
+  select(-reminder_1_11, -reminder_2_12, -reminder_3_13, -reminder_4_14, -reminder_5_15,
+         -reminder_1_25, -reminder_2_26, -reminder_3_27, -reminder_4_28, -reminder_5_29,
+         -thankyou_24, -thankyou_41)
+
+```
+
+## Check `3T Project Feedback` variables
+
+366 pts had responded to a series of questions asked starting from `response_no` 106-111. These data were not seperated by day/night so we can keep them.
+
+```{r check the rest of the variables }
+
+# Grab variables from the `3T Project Feedback` questions
+df_ema_wide_other <- df_ema_wide_1 %>% select(1, 2, 4, 8, 18:29)
+
+# Remove all NA rows to check these rows
+# It looks like these data were not seperated by day/night so we can keep them
+df_ema_wide_other_1 <- df_ema_wide_other %>% 
+  filter(rowSums(is.na(select(., 5:16))) < 12)
+
+# Are all of the data from `3T Project Feedback`? YES!
+table(df_ema_wide_other$session_name)
+
+```
+
+## Other cleaning
+
+We've cleaned the majority of the columns. Now, I want to make sure we have a similar order of columns as TTT 1, remove irrelevant columns, and create any necessary new columns.
+
+```{r}
+# Create a new column `lifepak_id` by extracting the numeric value after the hyphen
+df_ema_wide_2 <- df_ema_wide_1 %>%
+  mutate(lifepak_id = str_extract(participant_id, "(?<=-)[0-9]+"))
+
+# Remove some logical columns and reorder current df
+df_ema_wide_3 <- df_ema_wide_2 %>% 
+  select(1, 45, 2:5, 10, 30, 9, 11:13, 8, 14, 39:44, 31:38, 15:17, 20:28) 
+
+```
+
+## Check duplicates
+
+```{r identifying where the variable names do not match across dataframes}
+
+# Assuming named_lifepak is a list of data frames
+# Extract the column names of the two data frames
+colnames_df1 <- colnames(named_lifepak[[1]])
+colnames_df2 <- colnames(named_lifepak[[2]])
+
+# Compare the column names
+same_colnames <- identical(colnames_df1, colnames_df2)
+
+# Print the result
+if (same_colnames) {
+  cat("The column names are exactly the same and in the same order for both data frame.\n")
+} else {
+  cat("The column names are not the same or not in the same order.\n")
+}
+
+```
+
+
+```{r check duplicates}
+lifepak_df1 <- named_lifepak[[1]]
+lifepak_df2 <- named_lifepak[[2]]
+
+IDlist1 <- lifepak_df1$participant_id
+IDlist2 <- lifepak_df2$participant_id
+
+# Find duplicates between the two lists
+duplicates <- intersect(IDlist1, IDlist2)
+
+# Check if there are any duplicates
+if (length(duplicates) > 0) {
+  print("Duplicates found:")
+  print(duplicates)
+} else {
+  print("No duplicates found.")
+}
+```
+
+##  Clean individual data: duplicates from two csv df
+
+Participant 587713 has some unusual data. For `notification_no` 102 and 103, they are the same notification, but the data were separated and stored in different data frames. We manually cleaned it here by coalescing it. Then, we adjusted the `notification_no` from 104-106 to 103-105.
+
+```{r}
+df_ema_wide_4 <- df_ema_wide_3
+
+# Since there's only one pt due to some weird error, let's manually fix it
+df_ema_wide_4$thankyou[df_ema_wide_4$lifepak_id == 587713 & df_ema_wide_4$response_no == 102] <- "Viewed"
+
+df_ema_wide_4$energy[df_ema_wide_4$lifepak_id == 587713 & df_ema_wide_4$response_no == 102] <- 0
+
+### Remove response no 103
+df_ema_wide_5 <- df_ema_wide_4 %>% 
+  filter(!(df_ema_wide_4$lifepak_id == 587713 & df_ema_wide_4$response_no == 103)) 
+
+### We will adjust response_no later in the next step!
+
+```
+
+## Clean individual data: duplicated notifications
+
+For duplicated `notification_time` of each participant, we removed rows without data. If both rows are all NA, we kept the first row.
+
+```{r}
+# Are there any duplicated notifications across the whole df? YESSSS 
+any(duplicated(df_ema_wide_5$lifepak_id, df_ema_wide_5$notification_time))
+
+# Check these visually first!
+duplicates <- df_ema_wide_5 %>%
+  group_by(lifepak_id, notification_time) %>%
+  filter(n() > 1) %>%
+  ungroup()
+
+# SO there're 34 rows that contains duplicates (aka we need to remove row without data)
+# WE can remove the rows based on lifepak_id AND response_no
+# N - 18 = 26441
+df_ema_wide_6 <- df_ema_wide_5
+
+df_ema_wide_7 <- df_ema_wide_6 %>% 
+  filter(
+    !(lifepak_id == "056379" & response_no == 57) &
+      !(lifepak_id == "056379" & response_no == 90) &
+      !(lifepak_id == "063040" & response_no == 28) &
+      !(lifepak_id == "063040" & response_no == 29) &
+      !(lifepak_id == "063040" & response_no == 62) &
+      !(lifepak_id == "095387" & response_no == 108) &
+      !(lifepak_id == "144083" & response_no == 55) &
+      !(lifepak_id == "144083" & response_no == 69) &
+      !(lifepak_id == "144083" & response_no == 85) &
+      !(lifepak_id == "144083" & response_no == 86) &
+      !(lifepak_id == "324562" & response_no == 41) &
+      !(lifepak_id == "324562" & response_no == 83) &
+      !(lifepak_id == "324562" & response_no == 84) &
+      !(lifepak_id == "379350" & response_no == 54) &
+      !(lifepak_id == "764447" & response_no == 36) &
+      !(lifepak_id == "849302" & response_no == 47) &
+      !(lifepak_id == "923381" & response_no == 40) &
+      !(lifepak_id == "987930" & response_no == 61) 
+    )
+
+# Create the new column response_no based on row numbers
+df_ema_wide_8 <- df_ema_wide_7 %>%
+  arrange(lifepak_id, notification_time) %>%
+  group_by(lifepak_id) %>%
+  mutate(response_no = row_number()) %>%
+  ungroup()
+
+# Print the number of rows and columns
+
+cat("Number of rows:", nrow(df_ema_wide_8), "\n")
+cat("Number of columns:", ncol(df_ema_wide_8), "\n")
+
+```
+
+## Export the data frame
+```{r}
+
+### Export to csv
+write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(),".csv"))
+
+```
+
+
+## Next steps: 
+- Join all the EMA columns to Qualdrics dataframe (Jeremy's working on it so not yet)
+- Be done!
