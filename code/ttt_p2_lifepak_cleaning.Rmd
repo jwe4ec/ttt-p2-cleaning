@@ -486,8 +486,10 @@ cat("Number of columns:", ncol(df_ema_wide_16), "\n")
 ## Export the data frame
 ```{r}
 
+dir.create("./cleaned_data/")
+
 ### Export to csv
-# write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(),".csv"))
+write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(),".csv"))
 
 ```
 
