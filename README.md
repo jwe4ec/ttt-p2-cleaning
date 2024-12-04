@@ -50,10 +50,13 @@ To run the code, create a parent directory (name it as you wish, denoted here as
 └── code                         # Code subfolder
 ```
 
+TODO: Update this section (e.g., re "cleaned_data" directory created by cleaning script)
+
 ### Scripts
 
-TODO: Compare `ttt_p2_lifepak_cleaning.Rmd` with what Yama sent on 8/1/24
-- See `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang`
+TODO: Present script on repo reproduces output of Yama's `ttt_p2_lifepak_cleaning_07312024` sent on 8/1/24
+- That is, reproduces `cleaned_lifepak_ttt_phase_2_2024-08-01.csv` via `identical(x, y, FALSE, FALSE, FALSE, FALSE)`
+- Finish processing contents of `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang` 
 
 ## Other Documentation
 
