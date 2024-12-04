@@ -52,7 +52,8 @@ To run the code, create a parent directory (name it as you wish, denoted here as
 
 ### Scripts
 
-TODO
+TODO: Compare `ttt_p2_lifepak_cleaning.Rmd` with what Yama sent on 8/1/24
+- See `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang`
 
 ## Other Documentation
 
