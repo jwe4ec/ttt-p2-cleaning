@@ -41,9 +41,10 @@ LifePak data
 
 ```{r reading in all lifepak files}
 
-# Creating a file list of all csvs in working directory 
+# Creating a vector of paths of files to import
 
-lifepak_files <- list.files(path = "./data/", pattern = "*.csv", full.names = TRUE) # ensure to use `full.names = TRUE` in the list.files() function to get the full path of the files
+lifepak_files <- paste0("./data/", c("TRACK_to_T_NIS_Wide20230823_19_49_36_1.csv",
+                                     "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"))
 
 # Importing in data without variable names (Have to skip the first few rows because of Qualtrics' format)
 
