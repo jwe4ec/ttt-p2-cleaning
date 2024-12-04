@@ -26,11 +26,6 @@ library(janitor)   # 2.2.0
 
 ```
 
-```{r}
-# Read TTT Phase 1 data for reference
-all_ttt1_data <- read_csv("./data/ttt1_data/cleaned_lifepak_ttt_phase_1.csv")
-```
-
 # Initial Cleaning
 
 General plan here:
