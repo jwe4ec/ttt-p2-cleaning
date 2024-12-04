@@ -3,5 +3,6 @@
 .RData
 .Ruserdata
 data/
+cleaned_data/
 ttt-p2-cleaning.Rproj
 .DS_Store

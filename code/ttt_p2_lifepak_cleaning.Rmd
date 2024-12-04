@@ -7,6 +7,8 @@ output:
     toc: true
     toc_depth: 4
     toc_float: true
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE, cache = FALSE}
@@ -16,79 +18,12 @@ knitr::opts_chunk$set(echo = TRUE, tidy = TRUE, warning = FALSE, message = FALSE
 
 ```{r loading packages, include=FALSE}
 
-if(!require(tidymodels)){install.packages('tidymodels')}
-library(tidymodels)
-if(!require(tidyverse)){install.packages('tidyverse')}
-library(tidyverse)
-if(!require(skimr)){install.packages('skimr')}
-library(skimr)
-if(!require(furrr)){install.packages('furrr')}
-library(furrr)
-if(!require(scales)){install.packages('scales')}
-library(scales)
-if(!require(tictoc)){install.packages('tictoc')}
-library(tictoc)
-if(!require(heatmaply)){install.packages('heatmaply')}
-library(heatmaply)
-if(!require(doMC)){install.packages('doMC')}
-library(doMC)
-if(!require(glue)){install.packages('glue')}
-library(glue)
-if(!require(janitor)){install.packages('janitor')}
-library(janitor)
-if(!require(future)){install.packages('future')}
-library(future)
-if(!require(remotes)){install.packages('remotes')}
-library(remotes)
-if(!require(psych)){install.packages('psych')}
-library(psych)
-if(!require(imputeTS)){install.packages('imputeTS')}
-library(imputeTS)
-if(!require(timetk)){install.packages('timetk')}
-library(timetk)
-if(!require(tsibble)){install.packages('tsibble')}
-library(tsibble)
-if(!require(feasts)){install.packages('feasts')}
-library(feasts)
-if(!require(dtw)){install.packages('dtw')}
-library(dtw)
-if(!require(parallelDist)){install.packages('parallelDist')}
-library(parallelDist)
-if(!require(pheatmap)){install.packages('pheatmap')}
-library(pheatmap)
-if(!require(diffdf)){install.packages('diffdf')}
-library(diffdf)
-if(!require(tableone)){install.packages('tableone')}
-library(tableone)
-if(!require(tableone)){install.packages('tableone')}
-library(tableone)
-if(!require(corrr)){install.packages('corrr')}
-library(corrr)
-if(!require(Amelia)){install.packages('Amelia')}
-library(Amelia)
-if(!require(MOTE)){install.packages('MOTE')}
-library(MOTE)
-if(!require(fuzzyjoin)){install.packages('fuzzyjoin')}
-library(fuzzyjoin)
-if(!require(car)){install.packages('car')}
-library(car)
-if(!require(lsmeans)){install.packages('lsmeans')}
-library(lsmeans)
-if(!require(fastDummies)){install.packages('fastDummies')}
-library(fastDummies)
-if(!require(lubridate)){install.packages('lubridate')}
-library(lubridate)
-if(!require(modeltime)){install.packages('modeltime')}
-library(modeltime)
-if(!require(tibbletime)){install.packages('tibbletime')}
-library(tibbletime)
+# Using R 4.3.2 and "knitr" 1.45
 
+library(tidyverse) # 2.0.0
+library(skimr)     # 2.1.5
+library(janitor)   # 2.2.0
 
-```
-
-```{r}
-# Read TTT Phase 1 data for reference
-all_ttt1_data <- read_csv("./data/ttt1_data/cleaned_lifepak_ttt_phase_1.csv")
 ```
 
 # Initial Cleaning
@@ -106,9 +41,10 @@ LifePak data
 
 ```{r reading in all lifepak files}
 
-# Creating a file list of all csvs in working directory 
+# Creating a vector of paths of files to import
 
-lifepak_files <- list.files(path = "./data/", pattern = "*.csv", full.names = TRUE) # ensure to use `full.names = TRUE` in the list.files() function to get the full path of the files
+lifepak_files <- paste0("./data/", c("TRACK_to_T_NIS_Wide20230823_19_49_36_1.csv",
+                                     "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"))
 
 # Importing in data without variable names (Have to skip the first few rows because of Qualtrics' format)
 
@@ -551,8 +487,10 @@ cat("Number of columns:", ncol(df_ema_wide_16), "\n")
 ## Export the data frame
 ```{r}
 
+dir.create("./cleaned_data/")
+
 ### Export to csv
-# write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(),".csv"))
+write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(),".csv"))
 
 ```
 
