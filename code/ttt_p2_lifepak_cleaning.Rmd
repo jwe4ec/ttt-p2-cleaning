@@ -18,73 +18,11 @@ knitr::opts_chunk$set(echo = TRUE, tidy = TRUE, warning = FALSE, message = FALSE
 
 ```{r loading packages, include=FALSE}
 
-if(!require(tidymodels)){install.packages('tidymodels')}
-library(tidymodels)
-if(!require(tidyverse)){install.packages('tidyverse')}
-library(tidyverse)
-if(!require(skimr)){install.packages('skimr')}
-library(skimr)
-if(!require(furrr)){install.packages('furrr')}
-library(furrr)
-if(!require(scales)){install.packages('scales')}
-library(scales)
-if(!require(tictoc)){install.packages('tictoc')}
-library(tictoc)
-if(!require(heatmaply)){install.packages('heatmaply')}
-library(heatmaply)
-if(!require(doMC)){install.packages('doMC')}
-library(doMC)
-if(!require(glue)){install.packages('glue')}
-library(glue)
-if(!require(janitor)){install.packages('janitor')}
-library(janitor)
-if(!require(future)){install.packages('future')}
-library(future)
-if(!require(remotes)){install.packages('remotes')}
-library(remotes)
-if(!require(psych)){install.packages('psych')}
-library(psych)
-if(!require(imputeTS)){install.packages('imputeTS')}
-library(imputeTS)
-if(!require(timetk)){install.packages('timetk')}
-library(timetk)
-if(!require(tsibble)){install.packages('tsibble')}
-library(tsibble)
-if(!require(feasts)){install.packages('feasts')}
-library(feasts)
-if(!require(dtw)){install.packages('dtw')}
-library(dtw)
-if(!require(parallelDist)){install.packages('parallelDist')}
-library(parallelDist)
-if(!require(pheatmap)){install.packages('pheatmap')}
-library(pheatmap)
-if(!require(diffdf)){install.packages('diffdf')}
-library(diffdf)
-if(!require(tableone)){install.packages('tableone')}
-library(tableone)
-if(!require(tableone)){install.packages('tableone')}
-library(tableone)
-if(!require(corrr)){install.packages('corrr')}
-library(corrr)
-if(!require(Amelia)){install.packages('Amelia')}
-library(Amelia)
-if(!require(MOTE)){install.packages('MOTE')}
-library(MOTE)
-if(!require(fuzzyjoin)){install.packages('fuzzyjoin')}
-library(fuzzyjoin)
-if(!require(car)){install.packages('car')}
-library(car)
-if(!require(lsmeans)){install.packages('lsmeans')}
-library(lsmeans)
-if(!require(fastDummies)){install.packages('fastDummies')}
-library(fastDummies)
-if(!require(lubridate)){install.packages('lubridate')}
-library(lubridate)
-if(!require(modeltime)){install.packages('modeltime')}
-library(modeltime)
-if(!require(tibbletime)){install.packages('tibbletime')}
-library(tibbletime)
+# Using R 4.3.2 and "knitr" 1.45
 
+library(tidyverse) # 2.0.0
+library(skimr)     # 2.1.5
+library(janitor)   # 2.2.0
 
 ```
 
