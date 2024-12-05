@@ -43,8 +43,8 @@ LifePak data
 
 # Creating a vector of paths of files to import
 
-lifepak_files <- paste0("./data/", c("TRACK_to_T_NIS_Wide20230823_19_49_36_1.csv",
-                                     "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"))
+lifepak_files <- paste0("./data/raw/lifepak/", c("TRACK_to_T_NIS_Wide20230823_19_49_36_1.csv",
+                                                 "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"))
 
 # Importing in data without variable names (Have to skip the first few rows because of Qualtrics' format)
 
@@ -487,10 +487,10 @@ cat("Number of columns:", ncol(df_ema_wide_16), "\n")
 ## Export the data frame
 ```{r}
 
-dir.create("./cleaned_data/")
+dir.create("./data/clean/")
 
 ### Export to csv
-write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(), ".csv"))
+write_csv(df_ema_wide_8, paste0("./data/clean/cleaned_lifepak_ttt_phase_2_", Sys.Date(), ".csv"))
 
 ```
 
