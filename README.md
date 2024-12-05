@@ -14,6 +14,10 @@ This repository contains code for centralized data cleaning for Phase II of Proj
 
 Phase II of Project TRACK to TREAT (TTT) aims to use parameters from network models estimated from ecological momentary assessment (EMA) data to predict treatment response in depressed adolescents. Phase II consisted of an observational part (21 days of EMA with 5 pings per day) followed by an intervention part (i.e., random assignment to one of three single-session interventions [SSIs]: behavioral activation, growth mindset, or active control) completed within 2 weeks later. Qualtrics measures were given at baseline (pre-EMA); immediately pre- and post-SSI; and at 3, 6, 12, 18, and 24 months after post-SSI measures. Random assignment occurred immediately before pre-SSI measures.
 
+Study registration: [https://clinicaltrials.gov/study/NCT04607902](https://clinicaltrials.gov/study/NCT04607902)
+
+## Data Cleaning Overview
+
 Data, initial code, and documentation relevant to centralized data cleaning for Phase II of TTT are stored in the `MSS/Schleider_Lab/jslab/TRACK to TREAT P2 Data Cleaning` folder on the [FSMResFiles](https://www.feinberg.northwestern.edu/it/services/server-storage-and-data/research-data-storage.html) server at [Northwestern University Feinberg School of Medicine](https://www.feinberg.northwestern.edu/).
 
 The initial LifePak data cleaning code was drafted by [Yama Chang](https://github.com/yamachang), who adapted [Michael Mullarkey](https://github.com/mcmullarkey)'s LifePak data cleaning code from Phase I of TTT. The present repo houses [Jeremy Eberle](https://github.com/jwe4ec) and [Isaac Ahuvia](https://github.com/isaacahuvia)'s completion of data cleaning for Phase II. For centralized data cleaning for Phase I of TTT, see the separate repo [ttt-p1-main-analysis](https://github.com/jwe4ec/ttt-p1-main-analysis).
@@ -26,11 +30,11 @@ Lab staff who contributed to Phase II of TTT include current research coordinato
 
 #### From Qualtrics
 
-TODO
+TODO (note that so far they are interim data through 12 months)
 
 #### From LifePak
 
-TODO
+Raw EMA data are stored in the `/TRACK to TREAT P2/Data/LifePak/TRACK_to_T_NIS_Wide20230823_19_49_36/DataReports` folder, which contains 2 CSV files obtained from LifePak (per Date Modified file metadata, presumably on 9/6/23, although the folder and file names include the date 8/23/23). Although other files are in the `/TRACK to TREAT P2/Data/LifePak/` folder, they have earlier dates in their file names and thus do not seem to be used.
 
 ### Clean
 
@@ -42,21 +46,67 @@ TODO
 
 The scripts in the `code` folder of this repo import the raw data, deidentify the data, and clean the deidentified data, resulting in what we refer to as "intermediately cleaned" files ("intermediate" because additional cleaning will be needed specific to any given analysis).
 
-To run the code, create a parent directory (name it as you wish, denoted here as `.`) with two subfolders: `data` and `code`. Ensure the working directory is set to this parent directory. This setup ensures the code imports/exports correctly using relative file paths.
+To run the code, create a parent directory (named as you wish, denoted here as `.`) with the `data` and `code` subfolders below. Ensure the working directory is set to this parent directory. This setup ensures the code imports/exports correctly using relative file paths.
+
+Put the raw LifePak data in the `data/raw/lifepak` subfolder and the raw Qualtrics data in the `data/raw/qualtrics` subfolder. When you run the scripts, `ttt_p2_lifepak_cleaning.Rmd` will create the `data/clean` subfolder, where the scripts will export clean data.
 
 ```
 .                                # Parent folder (i.e., working directory)
-├── data                         # Data subfolder
+├── data                         # Data subfolders
+├── ├── raw
+├── ├── ├── lifepak              # 2 CSV files listed below
+├── ├── ├── qualtrics            # 19 CSV files listed below
+├── ├── (clean)                  # Folder with clean data will be created by "ttt_p2_lifepak_cleaning.Rmd"
 └── code                         # Code subfolder
 ```
 
-TODO: Update this section (e.g., re "cleaned_data" directory created by cleaning script)
-
 ### Scripts
+
+#### `ttt_p2_lifepak_cleaning.Rmd`
+
+Inputs the following 2 raw CSV files
+```
+# "TRACK_to_T_NIS_Wide20230823_19_49_36_1.csv"
+# "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"
+```
+
+Outputs `cleaned_lifepak_ttt_phase_2_2024-08-01.csv`
 
 TODO: Present script on repo reproduces output of Yama's `ttt_p2_lifepak_cleaning_07312024` sent on 8/1/24
 - That is, reproduces `cleaned_lifepak_ttt_phase_2_2024-08-01.csv` via `identical(x, y, FALSE, FALSE, FALSE, FALSE)`
 - Finish processing contents of `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang` 
+
+#### TODO: Qualtrics cleaning script
+
+Should input `DP5 Phase 2 - Screener_August 31, 2023_12.08 (Copy).csv`
+
+Should also input the following 18 raw CSV files
+```
+# "DP5+Phase+2+-+Parent+-+Baseline_Choicetext.csv"
+# "DP5+Phase+2+-+Parent+-+Baseline_Numeric.csv"
+# "DP5+Phase+2+-+Parent+-+FU+1+-+3M_Choicetext.csv"
+# "DP5+Phase+2+-+Parent+-+FU+1+-+3M_Numeric.csv"
+# "DP5+Phase+2+-+Parent+-+FU+2+-+6M_Choicetext.csv"
+# "DP5+Phase+2+-+Parent+-+FU+2+-+6M_Numeric.csv"
+# "DP5+Phase+2+-+Parent+-+FU+3+-+12M_Choicetext.csv"
+# "DP5+Phase+2+-+Parent+-+FU+3+-+12M_Numeric.csv"
+# "DP5+Phase+2+-+Youth+-+Baseline_Choicetext.csv"
+# "DP5+Phase+2+-+Youth+-+Baseline_Numeric.csv"
+# "DP5+Phase+2+-+Youth+-+FU+1+-+3M_Choicetext.csv"
+# "DP5+Phase+2+-+Youth+-+FU+1+-+3M_Numeric.csv"
+# "DP5+Phase+2+-+Youth+-+FU+2+-+6M_Choicetext.csv"
+# "DP5+Phase+2+-+Youth+-+FU+2+-+6M_Numeric.csv"
+# "DP5+Phase+2+-+Youth+-+FU+3+-+12M_Choicetext.csv"
+# "DP5+Phase+2+-+Youth+-+FU+3+-+12M_Numeric.csv"
+# "DP5+Phase+2+-+Youth+-+Interventions_Choicetext.csv"
+# "DP5+Phase+2+-+Youth+-+Interventions_Numeric.csv"
+```
+
+TODO: Describe outputs
+
+#### TODO: Deidentification script
+
+TODO: Describe inputs and outputs
 
 ## Other Documentation
 
@@ -66,4 +116,6 @@ TODO
 
 ## TODOs
 
-- TODO
+- TODO: Clean and deidentify Qualtrics data
+- TODO: Deidentify LifePak data if needed
+- TODO: Check for data quality (see Exclusion Criteria in [study registration](https://clinicaltrials.gov/study/NCT04607902))
