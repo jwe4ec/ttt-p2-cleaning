@@ -46,9 +46,9 @@ TODO
 
 The scripts in the `code` folder of this repo import the raw data, deidentify the data, and clean the deidentified data, resulting in what we refer to as "intermediately cleaned" files ("intermediate" because additional cleaning will be needed specific to any given analysis).
 
-To run the code, create a parent directory (named as you wish, denoted here as `.`) with the `data` and `code` subfolders below. Ensure the working directory is set to this parent directory. This setup ensures the code imports/exports correctly using relative file paths.
+To run the code, create a parent directory (named as you wish, denoted here as `.`) with the `./data` and `./code` subfolders below. Ensure the working directory is set to this parent directory. This setup ensures the code imports/exports correctly using relative file paths.
 
-Put the raw LifePak data in the `data/raw/lifepak` subfolder and the raw Qualtrics data in the `data/raw/qualtrics` subfolder. When you run the scripts, `ttt_p2_lifepak_cleaning.Rmd` will create the `data/clean` subfolder, where the scripts will export clean data.
+Put the raw LifePak data in the `./data/raw/lifepak` subfolder and the raw Qualtrics data in the `./data/raw/qualtrics` subfolder. When you run the scripts, `ttt_p2_lifepak_cleaning.Rmd` will create the `./data/clean` subfolder, where the scripts will export clean data.
 
 ```
 .                                # Parent folder (i.e., working directory)
