@@ -18,7 +18,7 @@ knitr::opts_chunk$set(echo = TRUE, tidy = TRUE, warning = FALSE, message = FALSE
 
 ```{r loading packages, include=FALSE}
 
-# Using R 4.3.2 and "knitr" 1.45
+# Using R 4.4.2 (2024-10-31 ucrt) and "knitr" 1.49
 
 library(tidyverse) # 2.0.0
 library(skimr)     # 2.1.5
@@ -490,7 +490,7 @@ cat("Number of columns:", ncol(df_ema_wide_16), "\n")
 dir.create("./cleaned_data/")
 
 ### Export to csv
-write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(),".csv"))
+write_csv(df_ema_wide_8, paste0("./cleaned_data/cleaned_lifepak_ttt_phase_2_", Sys.Date(), ".csv"))
 
 ```
 
