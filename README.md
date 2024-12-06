@@ -22,7 +22,7 @@ Data, initial code, and documentation relevant to centralized data cleaning for 
 
 The initial LifePak data cleaning code was drafted by [Yama Chang](https://github.com/yamachang), who adapted [Michael Mullarkey](https://github.com/mcmullarkey)'s LifePak data cleaning code from Phase I of TTT. The present repo houses [Jeremy Eberle](https://github.com/jwe4ec) and [Isaac Ahuvia](https://github.com/isaacahuvia)'s completion of data cleaning for Phase II. For centralized data cleaning for Phase I of TTT, see the separate repo [ttt-p1-main-analysis](https://github.com/jwe4ec/ttt-p1-main-analysis).
 
-Lab staff who contributed to Phase II of TTT include current research coordinator [Alyssa Gorkin](https://github.com/alyssagorkin) and former research coordinators Sharon Chen, Arielle Smith, Laura Jans, and Chantelle Roulston.
+Lab staff who contributed to Phase II of TTT include current research coordinator [Alyssa Gorkin](https://github.com/alyssagorkin) and former research coordinators Sharon Leong (formerly Chen), Arielle Smith, Laura Jans, and Chantelle Roulston.
 
 ## Data
 
@@ -76,7 +76,7 @@ Put the raw LifePak data in the `./data/raw/lifepak` subfolder and the raw Qualt
 
 #### `ttt_p2_lifepak_cleaning.Rmd`
 
-This script, derived from Yama Chang's initial script `ttt_p2_lifepak_cleaning_07312024.Rmd`, reproduces the output (`cleaned_lifepak_ttt_phase_2_2024-08-01.csv`) of the initial script per `identical(x, y, F, F, F, F)`. To date, the initial script has only been revised slightly to improve reproducibility; for the changes, see the present script's (commit history)[https://github.com/jwe4ec/ttt-p2-cleaning/commits/main/code/ttt_p2_lifepak_cleaning.Rmd].
+This script, derived from Yama Chang's initial script `ttt_p2_lifepak_cleaning_07312024.Rmd`, reproduces the output (`cleaned_lifepak_ttt_phase_2_2024-08-01.csv`) of the initial script per `identical(x, y, F, F, F, F)`. To date, the initial script has only been revised slightly to improve reproducibility; for the changes, see the script's [commit history](https://github.com/jwe4ec/ttt-p2-cleaning/commits/main/code/ttt_p2_lifepak_cleaning.Rmd).
 
 Inputs the following 2 raw CSV files
 ```
