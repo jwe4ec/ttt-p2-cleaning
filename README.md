@@ -84,7 +84,7 @@ Inputs the following 2 raw CSV files
 # "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"
 ```
 
-Outputs `cleaned_lifepak_ttt_phase_2_2024-08-01.csv` (more specifically, the `YYYY-MM-DD` is the system date)
+Outputs `cleaned_lifepak_ttt_phase_2_YYYY-MM-DD.csv` (where `YYYY-MM-DD` is the system date)
 
 #### TODO: Qualtrics cleaning script
 
@@ -126,7 +126,7 @@ TODO
 
 ## TODOs
 
-- TODO: Finish processing contents of `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang` 
+- TODO: Move contents of "/TRACK to TREAT P2 Data Cleaning/" to "/TRACK to TREAT P2/" after receiving confirmation from Alyssa. Then update file paths above and describe Other Documentation.
 - TODO: Clean and deidentify Qualtrics data
 - TODO: Deidentify LifePak data if needed
 - TODO: Check for data quality (see Exclusion Criteria in [study registration](https://clinicaltrials.gov/study/NCT04607902))
