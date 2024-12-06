@@ -18,7 +18,7 @@ Study registration: [https://clinicaltrials.gov/study/NCT04607902](https://clini
 
 ## Data Cleaning Overview
 
-Data, initial code, and documentation relevant to centralized data cleaning for Phase II of TTT are stored in the `MSS/Schleider_Lab/jslab/TRACK to TREAT P2 Data Cleaning` folder on the [FSMResFiles](https://www.feinberg.northwestern.edu/it/services/server-storage-and-data/research-data-storage.html) server at [Northwestern University Feinberg School of Medicine](https://www.feinberg.northwestern.edu/).
+Data, initial code, and documentation relevant to centralized data cleaning for Phase II of TTT are stored in the `MSS/Schleider_Lab/jslab/TRACK to TREAT P2` and `MSS/Schleider_Lab/jslab/TRACK to TREAT P2 Data Cleaning` folders on the [FSMResFiles](https://www.feinberg.northwestern.edu/it/services/server-storage-and-data/research-data-storage.html) server at [Northwestern University Feinberg School of Medicine](https://www.feinberg.northwestern.edu/).
 
 The initial LifePak data cleaning code was drafted by [Yama Chang](https://github.com/yamachang), who adapted [Michael Mullarkey](https://github.com/mcmullarkey)'s LifePak data cleaning code from Phase I of TTT. The present repo houses [Jeremy Eberle](https://github.com/jwe4ec) and [Isaac Ahuvia](https://github.com/isaacahuvia)'s completion of data cleaning for Phase II. For centralized data cleaning for Phase I of TTT, see the separate repo [ttt-p1-main-analysis](https://github.com/jwe4ec/ttt-p1-main-analysis).
 
@@ -30,15 +30,27 @@ Lab staff who contributed to Phase II of TTT include current research coordinato
 
 #### From Qualtrics
 
-TODO (note that so far they are interim data through 12 months)
+##### Screening Survey
+
+Screening and enrollment are complete.
+
+The `/TRACK to TREAT P2 Data Cleaning/Data/Raw/Qualtrics` folder contains 1 CSV file copy (see below) of the Phase II screening data obtained from Qualtrics (per the Date Modified file metadata of the original file and the date in the file name, presumably this file was obtained on 8/31/23). The original file is in the `MSS/Schleider_Lab/jslab/Qualtrics Back-Ups/TRACK to TREAT P2/DP5 Phase 2 - Screener` folder.
+
+##### Study Surveys
+
+Qualtrics data collection through the 12-month assessment is complete; collection of 18- and 24-month assessment data is ongoing and projected to be complete in April 2025 and November 2025, respectively.
+
+Raw **interim** data at the baseline; pre/post-SSI; and 3-, 6-, and 12-month assessments are stored in the `/TRACK to TREAT P2 Data Cleaning/Data/Raw/Qualtrics` folder, which contains (in the `2024.11.20_interim` subfolder) 18 CSV files (see below) dumped from Qualtrics by Alyssa Gorkin on 11/20/24.
 
 #### From LifePak
+
+EMA data collection is complete.
 
 Raw EMA data are stored in the `/TRACK to TREAT P2/Data/LifePak/TRACK_to_T_NIS_Wide20230823_19_49_36/DataReports` folder, which contains 2 CSV files obtained from LifePak (per Date Modified file metadata, presumably on 9/6/23, although the folder and file names include the date 8/23/23). Although other files are in the `/TRACK to TREAT P2/Data/LifePak/` folder, they have earlier dates in their file names and thus do not seem to be used.
 
 ### Clean
 
-TODO
+Output (i.e., `cleaned_lifepak_ttt_phase_2_2024-08-01.csv`) from Yama Chang's initial LifePak cleaning script is in the `/TRACK to TREAT P2 Data Cleaning/2024.08.01 From Yama Chang/cleaned_data` folder
 
 ## Code
 
@@ -119,3 +131,4 @@ TODO
 - TODO: Clean and deidentify Qualtrics data
 - TODO: Deidentify LifePak data if needed
 - TODO: Check for data quality (see Exclusion Criteria in [study registration](https://clinicaltrials.gov/study/NCT04607902))
+- TODO: Add 18- and 24-month Qualtrics data to cleaning pipeline once their data collection is complete
