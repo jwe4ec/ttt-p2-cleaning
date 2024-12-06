@@ -40,7 +40,7 @@ The `/TRACK to TREAT P2 Data Cleaning/Data/Raw/Qualtrics` folder contains 1 CSV 
 
 Qualtrics data collection through the 12-month assessment is complete; collection of 18- and 24-month assessment data is ongoing and projected to be complete in April 2025 and November 2025, respectively.
 
-Raw **interim** data at the baseline; pre/post-SSI; and 3-, 6-, and 12-month assessments are stored in the `/TRACK to TREAT P2 Data Cleaning/Data/Raw/Qualtrics` folder, which contains (in the `2024.11.20_interim` subfolder) 18 CSV files (see below) dumped from Qualtrics by Alyssa Gorkin on 11/20/24.
+Raw ***interim*** data at the baseline; pre/post-SSI; and 3-, 6-, and 12-month assessments are stored in the `/TRACK to TREAT P2 Data Cleaning/Data/Raw/Qualtrics` folder, which contains (in the `2024.11.20_interim` subfolder) 18 CSV files (see below) dumped from Qualtrics by Alyssa Gorkin on 11/20/24.
 
 #### From LifePak
 
