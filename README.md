@@ -56,11 +56,11 @@ Output (i.e., `cleaned_lifepak_ttt_phase_2_2024-08-01.csv`) from Yama Chang's in
 
 ### Setup and File Relations
 
-The scripts in the `code` folder of this repo import the raw data, deidentify the data, and clean the deidentified data, resulting in what we refer to as "intermediately cleaned" files ("intermediate" because additional cleaning will be needed specific to any given analysis).
+The scripts in the `code` folder of this repo import the raw data and clean and deidentify the data, resulting in what we refer to as "intermediately cleaned" files ("intermediate" because additional cleaning will be needed specific to any given analysis).
 
-To run the code, create a parent directory (named as you wish, denoted here as `.`) with the `./data` and `./code` subfolders below. Ensure the working directory is set to this parent directory. This setup ensures the code imports/exports correctly using relative file paths.
+To run the code, create a parent directory (denoted here as `.`) with the `./data` and `./code` subfolders below. Ensure the working directory is set to this parent directory. This setup ensures the code imports/exports correctly using relative file paths.
 
-Put the raw LifePak data in the `./data/raw/lifepak` subfolder and the raw Qualtrics data in the `./data/raw/qualtrics` subfolder. When you run the scripts, `ttt_p2_lifepak_cleaning.Rmd` will create the `./data/clean` subfolder, where the scripts will export clean data.
+Put the raw LifePak data in the `./data/raw/lifepak` subfolder and the raw Qualtrics data in the `./data/raw/qualtrics` subfolder. `ttt_p2_lifepak_cleaning.Rmd` will create the `./data/clean` subfolder, where the scripts will export clean data.
 
 ```
 .                                # Parent folder (i.e., working directory)
@@ -76,17 +76,15 @@ Put the raw LifePak data in the `./data/raw/lifepak` subfolder and the raw Qualt
 
 #### `ttt_p2_lifepak_cleaning.Rmd`
 
+This script, derived from Yama Chang's initial script `ttt_p2_lifepak_cleaning_07312024.Rmd`, reproduces the output (`cleaned_lifepak_ttt_phase_2_2024-08-01.csv`) of the initial script per `identical(x, y, F, F, F, F)`. To date, the initial script has only been revised slightly to improve reproducibility; for the changes, see the present script's (commit history)[https://github.com/jwe4ec/ttt-p2-cleaning/commits/main/code/ttt_p2_lifepak_cleaning.Rmd].
+
 Inputs the following 2 raw CSV files
 ```
 # "TRACK_to_T_NIS_Wide20230823_19_49_36_1.csv"
 # "TRACK_to_T_NIS_Wide20230823_19_49_36_2.csv"
 ```
 
-Outputs `cleaned_lifepak_ttt_phase_2_2024-08-01.csv`
-
-TODO: Present script on repo reproduces output of Yama's `ttt_p2_lifepak_cleaning_07312024` sent on 8/1/24
-- That is, reproduces `cleaned_lifepak_ttt_phase_2_2024-08-01.csv` via `identical(x, y, FALSE, FALSE, FALSE, FALSE)`
-- Finish processing contents of `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang` 
+Outputs `cleaned_lifepak_ttt_phase_2_2024-08-01.csv` (more specifically, the `YYYY-MM-DD` is the system date)
 
 #### TODO: Qualtrics cleaning script
 
@@ -114,7 +112,7 @@ Should also input the following 18 raw CSV files
 # "DP5+Phase+2+-+Youth+-+Interventions_Numeric.csv"
 ```
 
-TODO: Describe outputs
+TODO: Describe output
 
 #### TODO: Deidentification script
 
@@ -128,7 +126,8 @@ TODO
 
 ## TODOs
 
+- TODO: Finish processing contents of `R:\MSS\Schleider_Lab\jslab\TRACK to TREAT P2 Data Cleaning\2024.08.01 From Yama Chang` 
 - TODO: Clean and deidentify Qualtrics data
 - TODO: Deidentify LifePak data if needed
 - TODO: Check for data quality (see Exclusion Criteria in [study registration](https://clinicaltrials.gov/study/NCT04607902))
-- TODO: Add 18- and 24-month Qualtrics data to cleaning pipeline once their data collection is complete
+- TODO: Add 18- and 24-month Qualtrics data to cleaning pipeline once data collection is complete
