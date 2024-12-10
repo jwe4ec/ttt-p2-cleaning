@@ -120,18 +120,23 @@ TODO: Describe inputs and outputs
 
 ## Other Documentation
 
-The following files in the `TRACK to TREAT P2` folder are relevant to data cleaning.
-- TODO: `/TRACK to TREAT P2/LSMH Participant Database_Backup_DoNotUse.xlsx` (working file)
-  - TODO: Asked Alyssa why use this rather than `LSMH database backup 09.24.xlsx`
-- TODO: `/TRACK to TREAT P2/Data/Qualtrics/Raw/README_ttt_p2_raw_qualtrics_data.docx`
-- TODO: `/TRACK to TREAT P2/Data Cleaning/README_ttt_p2_data_cleaning.docx`
+The following files in the `MSS/Schleider_Lab/jslab/TRACK to TREAT P2` folder are relevant to data cleaning.
+
+### General
+
+- `/TRACK to TREAT P2/Data/README_ttt_p2_data_collection.docx`
+- `/TRACK to TREAT P2/LSMH Participant Database Backups` folder
+- `/TRACK to TREAT P2/Data Cleaning/README_ttt_p2_data_cleaning.docx`
   - Points to present repo as most recent data cleaning effort
+
+### Qualtrics
+
+- `/TRACK to TREAT P2/Data/Qualtrics/Raw/README_ttt_p2_raw_qualtrics_data.docx`
 
 ## TODOs
 
-- TODO: Finish describing Other Documentation after receiving clarification from Alyssa
 - TODO: Clean and deidentify Qualtrics data
-- TODO: Deidentify LifePak data if needed
+- TODO: Further clean and deidentify LifePak data if needed
 - TODO: Check for data quality (see Exclusion Criteria in [study registration](https://clinicaltrials.gov/study/NCT04607902))
 - TODO: Add 18- and 24-month Qualtrics data to cleaning pipeline once data collection is complete
 - TODO: Put deidentified clean data in `./data/clean` folder on [OSF project](https://osf.io/yjv72/) linked to the present repo
