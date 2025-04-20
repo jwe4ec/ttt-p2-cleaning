@@ -1,5 +1,11 @@
 # ttt-p2-cleaning
 
+TODO: Document that latest centralized Phase II cleaning is now on [track-to-treat](https://github.com/isaacahuvia/track-to-treat) repo.
+
+
+
+
+
 This repository contains code for centralized data cleaning for Phase II of Project TRACK to TREAT. The repo is linked to this project on the Open Science Framework (OSF): [https://osf.io/yjv72/](https://osf.io/yjv72/).
 
 ## Table of Contents
