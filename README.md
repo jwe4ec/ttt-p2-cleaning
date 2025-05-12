@@ -44,9 +44,9 @@ The `/TRACK to TREAT P2/Data/Qualtrics/Raw` folder contains 1 CSV file copy (see
 
 ##### Study Surveys
 
-Qualtrics data collection through the 12-month assessment is complete; collection of 18- and 24-month assessment data is ongoing and projected to be complete in April 2025 and November 2025, respectively.
+Qualtrics data collection through the 18-month assessment is complete; collection of 24-month assessment data is ongoing and projected to be complete in November 2025.
 
-Raw ***<ins>interim</ins>*** data at the baseline; pre/post-SSI; and 3-, 6-, and 12-month assessments are stored in the `/TRACK to TREAT P2/Data/Qualtrics/Raw` folder, which contains (in the `2024.11.20_interim` subfolder) 18 CSV files (see below) dumped from Qualtrics by Alyssa Gorkin on 11/20/24.
+Raw ***<ins>interim</ins>*** data at the baseline; pre/post-SSI; and 3-, 6-, 12-, and 18-month assessments are stored in the `/TRACK to TREAT P2/Data/Qualtrics/Raw` folder, which contains (in the `2025.05.06_interim` subfolder) 22 CSV files (see below) dumped from Qualtrics by Alyssa Gorkin on 5/6/25.
 
 #### From LifePak
 
@@ -96,26 +96,30 @@ Outputs `cleaned_lifepak_ttt_phase_2_YYYY-MM-DD.csv` (where `YYYY-MM-DD` is the 
 
 Should input `DP5 Phase 2 - Screener_August 31, 2023_12.08 (Copy).csv`
 
-Should also input the following 18 raw CSV files
+Should also input the following 22 raw CSV files
 ```
-# "DP5+Phase+2+-+Parent+-+Baseline_Choicetext.csv"
-# "DP5+Phase+2+-+Parent+-+Baseline_Numeric.csv"
-# "DP5+Phase+2+-+Parent+-+FU+1+-+3M_Choicetext.csv"
-# "DP5+Phase+2+-+Parent+-+FU+1+-+3M_Numeric.csv"
-# "DP5+Phase+2+-+Parent+-+FU+2+-+6M_Choicetext.csv"
-# "DP5+Phase+2+-+Parent+-+FU+2+-+6M_Numeric.csv"
-# "DP5+Phase+2+-+Parent+-+FU+3+-+12M_Choicetext.csv"
-# "DP5+Phase+2+-+Parent+-+FU+3+-+12M_Numeric.csv"
-# "DP5+Phase+2+-+Youth+-+Baseline_Choicetext.csv"
-# "DP5+Phase+2+-+Youth+-+Baseline_Numeric.csv"
-# "DP5+Phase+2+-+Youth+-+FU+1+-+3M_Choicetext.csv"
-# "DP5+Phase+2+-+Youth+-+FU+1+-+3M_Numeric.csv"
-# "DP5+Phase+2+-+Youth+-+FU+2+-+6M_Choicetext.csv"
-# "DP5+Phase+2+-+Youth+-+FU+2+-+6M_Numeric.csv"
-# "DP5+Phase+2+-+Youth+-+FU+3+-+12M_Choicetext.csv"
-# "DP5+Phase+2+-+Youth+-+FU+3+-+12M_Numeric.csv"
-# "DP5+Phase+2+-+Youth+-+Interventions_Choicetext.csv"
-# "DP5+Phase+2+-+Youth+-+Interventions_Numeric.csv"
+# "DP5+Phase+2+-+Parent+-+Baseline_May+6,+2025_09.42 _c"
+# "DP5+Phase+2+-+Parent+-+Baseline_May+6,+2025_09.42_n"
+# "DP5+Phase+2+-+Parent+-+FU+1+-+3M_May+6,+2025_09.44_n"
+# "DP5+Phase+2+-+Parent+-+FU+1+-+3M_May+6,+2025_09.45_c"
+# "DP5+Phase+2+-+Parent+-+FU+2+-+6M_May+6,+2025_09.46_n"
+# "DP5+Phase+2+-+Parent+-+FU+2+-+6M_May+6,+2025_09.47_c"
+# "DP5+Phase+2+-+Parent+-+FU+3+-+12M_May+6,+2025_09.48_n"
+# "DP5+Phase+2+-+Parent+-+FU+3+-+12M_May+6,+2025_09.49_c"
+# "DP5+Phase+2+-+Parent+-+FU+4+-+18M_May+6,+2025_09.50_n"
+# "DP5+Phase+2+-+Parent+-+FU+4+-+18M_May+6,+2025_09.51_c"
+# "DP5+Phase+2+-+Youth+-+Baseline_May+6,+2025_09.43_c"
+# "DP5+Phase+2+-+Youth+-+Baseline_May+6,+2025_09.43_n"
+# "DP5+Phase+2+-+Youth+-+FU+1+-+3M_May+6,+2025_09.45_c"
+# "DP5+Phase+2+-+Youth+-+FU+1+-+3M_May+6,+2025_09.45_n"
+# "DP5+Phase+2+-+Youth+-+FU+2+-+6M_May+6,+2025_09.47_n"
+# "DP5+Phase+2+-+Youth+-+FU+2+-+6M_May+6,+2025_09.48_c"
+# "DP5+Phase+2+-+Youth+-+FU+3+-+12M_May+6,+2025_09.49_n"
+# "DP5+Phase+2+-+Youth+-+FU+3+-+12M_May+6,+2025_09.50_c"
+# "DP5+Phase+2+-+Youth+-+FU+4+-+18M_May+6,+2025_09.51_n"
+# "DP5+Phase+2+-+Youth+-+FU+4+-+18M_May+6,+2025_09.52_c"
+# "DP5+Phase+2+-+Youth+-+Interventions_May+6,+2025_09.56_n"
+# "DP5+Phase+2+-+Youth+-+Interventions_May+6,+2025_09.57_c"
 ```
 
 TODO: Describe output
@@ -144,5 +148,5 @@ The following files in the `MSS/Schleider_Lab/jslab/TRACK to TREAT P2` folder ar
 - TODO: Clean and deidentify Qualtrics data
 - TODO: Further clean and deidentify LifePak data if needed
 - TODO: Check for data quality (see Exclusion Criteria in [study registration](https://clinicaltrials.gov/study/NCT04607902))
-- TODO: Add 18- and 24-month Qualtrics data to cleaning pipeline once data collection is complete
+- TODO: Add 24-month Qualtrics data to cleaning pipeline once data collection is complete
 - TODO: Put deidentified clean data in `./data/clean` folder on [OSF project](https://osf.io/yjv72/) linked to the present repo
