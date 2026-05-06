@@ -1,12 +1,12 @@
-# ttt-p2-cleaning-old
+# ttt-p2-lifepak-cleaning-old
 
 This repo contains the old centralized LifePak data cleaning code for Phase 2 of Project Track to Treat (TTT). **For the new LifePak and Qualtrics data cleaning code for Phases 1-2 of TTT, see the [jwe4ec/track-to-treat](https://github.com/jwe4ec/track-to-treat) repo.**
 
-The old LifePak code was drafted by [Yama Chang](https://github.com/yamachang), who adapted [Michael Mullarkey](https://github.com/mcmullarkey)'s old LifePak data cleaning code from Phase 1 of TTT (see [jwe4ec/ttt-p1-cleaning-old](https://github.com/jwe4ec/ttt-p1-cleaning-old)). The Phase 2 Qualtrics data had not been cleaned, which in part motivated the new approach to data cleaning (encompassing both LifePak and Qualtrics data).
+The old code was drafted by [Yama Chang](https://github.com/yamachang), who adapted [Michael Mullarkey](https://github.com/mcmullarkey)'s old LifePak data cleaning code from Phase 1 of TTT (see [jwe4ec/ttt-p1-cleaning-old](https://github.com/jwe4ec/ttt-p1-cleaning-old)). The Phase 2 Qualtrics data had not been cleaned, which in part motivated the new approach to data cleaning (encompassing both LifePak and Qualtrics data).
 
 Lab staff who contributed to Phase 2 of TTT include current research coordinator [Alyssa Gorkin](https://github.com/alyssagorkin) and former research coordinators Sharon Leong (formerly Chen), Arielle Smith, Laura Jans, and Chantelle Roulston.
 
-The data, old LifePak code, and documentation for Phase 2 are stored in `jslab/TRACK to TREAT/` on the FSMResFiles server.
+The data, old code, and documentation for Phase 2 are stored in `jslab/TRACK to TREAT P2/` on the FSMResFiles server.
 
 ## Data
 
@@ -34,7 +34,7 @@ Outputs `cleaned_lifepak_ttt_phase_2_YYYY-MM-DD.csv` (where `YYYY-MM-DD` is the 
 
 ## Other Documentation
 
-The following files in `jslab/TRACK to TREAT P2/` are relevant to data cleaning.
+The following files in `/TRACK to TREAT P2/` are relevant to data cleaning.
 
 ### General
 
